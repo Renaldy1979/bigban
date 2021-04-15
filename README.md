@@ -1,11 +1,11 @@
 <p align="center">🎉
   <a href="#-sobre"> Sobre </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-material-de-apoio">Material de apoio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#️-funcionalidades">Funcionalidades</a>
+  <a href="#-documentacao"> Documentação </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-material-de-apoio"> Material de apoio </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#️-funcionalidades"> Funcionalidades </a>
 </p>
 
-# 🔖 Sobre
+## 🔖 Sobre
 
 Este projeto tem como objetivo colocar em prática tudo que estou aprendendo na `Rocketseat` com NodeJs, e todas as suas dependências, para criar um sistema de controle de projetos. Este sistema irá me ajudar a no meu dia-a-dia na empresa onde trabalho.
 
