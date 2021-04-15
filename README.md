@@ -1,48 +1,34 @@
-# Recuperação de senha
+<p align="center">🎉
+  <a href="#-sobre"> Sobre </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-material-de-apoio">Material de apoio</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#️-funcionalidades">Funcionalidades</a>
+</p>
 
-**RF**
+# 🔖 Sobre
 
-- O usuário deve poder recuperar sua senha informando o seu e-mail;
-- O usuário deve receber um e-mail com instruções de recuperação de senha;
-- O usuário deve poder resetar sua senha;
+Este projeto tem como objetivo colocar em prática tudo que estou aprendendo na `Rocketseat` com NodeJs, e todas as suas dependências, para criar um sistema de controle de projetos. Este sistema irá me ajudar a no meu dia-a-dia na empresa onde trabalho.
 
-**RNF**
+## ✍🏻 Documentação
 
-- Utilizar Mailtrap para testar envios em ambiente de dev;
-- Utilizar Amazon SES para envios em produção;
-- O envio de e-mails deve acontecer em segundo plano (background job);
 
-**RN**
+## 🗂 Material de apoio
 
-- Identificar o usuário que solicitou a recuperaçao da senha;
-- O link enviado por email para resetar senha, deve expirar em 2h;
-- O usuário precisa confirmar a nova senha ao resetar sua senha;
+- [TypeORM](typeorm.io/)
+- [JWT](https://jwt.io)
+- [BCrypt](https://www.npmjs.com/package/bcrypt)
+- [JsonWebToken](www.npmjs.com/package/jsonwebtoken)
 
-# Atualização do perfil
+## ☑️ Funcionalidades
 
-**RF**
+[ ] CRUD de Users <br/>
+[ ] CRUD de Produtos<br/>
+[ ] CRUD de Permissões<br/>
+[ ] CRUD de Roles<br/>
+[ ] Autenticacao de Users<br/>
+[ ] Relacionamento User_Roles<br/>
+[ ] Relacionamento Permission_Roles<br/>
+[ ] Relatório de Status de Projetos
+---
 
-- O usuário deve poder atualizar seu nome, email e senha;
-
-**RN**
-
-- O usuário não pode alterar seu email para um email já utilizado;
-- Para atualizar sua senha, o usuário deve informar a senha antiga;
-- Para atualizar sua senha, o usuário precisa confirmar a nova senha;
-
-# Painel do usuário
-
-**RF**
-
-- O usuário deve poder listar seus projetos de um status específico;
-- O usuário deve receber uma notificação sempre que houve atualizações nos seus projetos;
-- O usuário deve poder visualizar as notificações não lidas;
-
-**RNF**
-
-- As notificações do usuários devem ser armazenadas no MongoDB;
-- As notificações do usuários devem ser enviadas em tempo-real utilizando Socket.io;
-
-**RN**
-
-- A notificação deve ter um status de lida ou não-lida para que o usuário possa controlar;
+<h3 align="center">Em desenvolvimento por Renaldy Sousa </h3>
