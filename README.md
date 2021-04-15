@@ -21,6 +21,7 @@ Este projeto tem como objetivo colocar em prática tudo que estou aprendendo na 
 
 ## ☑️ Funcionalidades
 
+<p>
 [ ] CRUD de Users <br/>
 [ ] CRUD de Produtos<br/>
 [ ] CRUD de Permissões<br/>
@@ -30,5 +31,6 @@ Este projeto tem como objetivo colocar em prática tudo que estou aprendendo na 
 [ ] Relacionamento Permission_Roles<br/>
 [ ] Relatório de Status de Projetos
 ---
+</p>
 
 <h3 align="center">Em desenvolvimento por Renaldy Sousa </h3>
