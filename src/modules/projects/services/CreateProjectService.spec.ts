@@ -32,8 +32,7 @@ describe('CreateProject', () => {
       responsible_status: '',
       internal_status: '',
       internal_book: '',
-      created_by: '',
-      updated_by: '',
+      userLogged: 'user-logged',
     });
 
     expect(project).toHaveProperty('id');
@@ -61,8 +60,7 @@ describe('CreateProject', () => {
       responsible_status: '',
       internal_status: '',
       internal_book: '',
-      created_by: '',
-      updated_by: '',
+      userLogged: 'user-logged',
     });
 
     await expect(
@@ -86,8 +84,7 @@ describe('CreateProject', () => {
         responsible_status: '',
         internal_status: '',
         internal_book: '',
-        created_by: '',
-        updated_by: '',
+        userLogged: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

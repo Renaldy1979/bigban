@@ -1,38 +1,67 @@
+import { getCustomRepository } from 'typeorm';
+import authConfig from '@config/auth';
+import AppError from '@shared/errors/AppError';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import authConfig from '@config/auth';
 
-import AppError from '@shared/errors/AppError';
+import UsersRepository from '../../typeorm/repositories/UsersRepository';
+import User from '../../typeorm/entities/User';
 
-interface ITokenPaylod {
+interface ITokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  roles: string;
 }
 
-export default function ensureAuthenticated(
-  request: Request,
-  response: Response,
-  next: NextFunction,
-): void {
+async function decoder(request: Request): Promise<User | undefined> {
   const authHeader = request.headers.authorization;
-
+  const userRepository = getCustomRepository(UsersRepository);
   if (!authHeader) {
-    throw new AppError(' JWT token is missing', 401);
+    throw new AppError('JWT token is missing');
   }
+
   const [, token] = authHeader.split(' ');
 
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as ITokenPaylod;
+    const { sub, roles } = decoded as ITokenPayload;
 
     request.user = {
       id: sub,
+      roles,
     };
 
-    return next();
-  } catch (err) {
-    throw new AppError('Invalid JWT token.', 401);
+    const user = await userRepository.findById(sub);
+
+    return user;
+  } catch {
+    throw new AppError('Invalid JWT token');
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function is(role: string[]) {
+  const roleAuthorized = async (
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ) => {
+    return next();
+    const user = await decoder(request);
+
+    // eslint-disable-next-line no-shadow
+    const userRoles = user?.roles.map(role => role.name);
+
+    const existsRoles = userRoles?.some(r => role.includes(r));
+
+    if (existsRoles) {
+      // return next();
+    }
+
+    throw new AppError('Not authorized!');
+  };
+
+  return roleAuthorized;
 }

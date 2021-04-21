@@ -17,6 +17,11 @@ class UsersRepository implements IUsersRepository {
     return findUser;
   }
 
+  public async index(): Promise<User[]> {
+    const findUser = this.users;
+    return findUser;
+  }
+
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
 

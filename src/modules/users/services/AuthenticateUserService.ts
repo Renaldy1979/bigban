@@ -1,3 +1,4 @@
+// import { Role } from '@modules/users/infra/typeorm/entities/Role';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 
@@ -43,10 +44,11 @@ class AuthenticateUserService {
     if (!passwordMatched) {
       throw new AppError('Incorrect email/password combination.', 401);
     }
-
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
+    const userRoles = user.roles.map(role => role.name).toString();
+
+    const token = sign({ roles: userRoles }, secret, {
       subject: user.id,
       expiresIn,
     });

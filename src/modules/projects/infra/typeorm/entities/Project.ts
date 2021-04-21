@@ -72,7 +72,7 @@ class Project {
   @Column()
   internal_book: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'requester_id' })
   requester: User;
 
@@ -82,7 +82,7 @@ class Project {
   @Column()
   created_by: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'created_by' })
   creater: User;
 
@@ -92,7 +92,7 @@ class Project {
   @Column()
   updated_by: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'updated_by' })
   updater: User;
 }

@@ -26,8 +26,7 @@ interface IRequest {
   responsible_status: string;
   internal_status: string;
   internal_book: string;
-  created_by: string;
-  updated_by: string;
+  userLogged: string;
 }
 @injectable()
 class CreateProjectService {
@@ -56,8 +55,7 @@ class CreateProjectService {
     responsible_status,
     internal_status,
     internal_book,
-    created_by,
-    updated_by,
+    userLogged,
   }: IRequest): Promise<Project> {
     const findProjectsInSameCode = await this.projectsRepository.findByCode(
       code,
@@ -87,8 +85,8 @@ class CreateProjectService {
       responsible_status,
       internal_status,
       internal_book,
-      created_by,
-      updated_by,
+      created_by: userLogged,
+      updated_by: userLogged,
     });
 
     return project;

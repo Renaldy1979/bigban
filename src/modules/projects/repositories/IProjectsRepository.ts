@@ -1,9 +1,12 @@
 import Project from '@modules/projects/infra/typeorm/entities/Project';
 import ICreateProjectDTO from '../dtos/ICreateProjectDTO';
-import IFindAllProjectsDTO from '../dtos/IFindAllProjectsDTO';
 
 export default interface IProjectsRepository {
-  create(date: ICreateProjectDTO): Promise<Project>;
+  create(data: ICreateProjectDTO): Promise<Project>;
+  save(project: Project): Promise<Project>;
+  index(): Promise<Project[]>;
+  delete(id: string): Promise<void>;
+  show(id: string): Promise<Project | undefined>;
+
   findByCode(code: string): Promise<Project | undefined>;
-  findAllProjects(data?: IFindAllProjectsDTO): Promise<Project[]>;
 }
