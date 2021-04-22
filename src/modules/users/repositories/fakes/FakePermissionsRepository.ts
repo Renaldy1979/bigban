@@ -32,6 +32,27 @@ class PermissionsRepository implements IPermissionsRepository {
 
     return findPermissions;
   }
+
+  public async save(permission: Permission): Promise<Permission> {
+    const findIndex = this.permissions.findIndex(
+      findPermission => findPermission.id === permission.id,
+    );
+
+    this.permissions[findIndex] = permission;
+    return permission;
+  }
+
+  public async index(): Promise<Permission[]> {
+    const findPermissions = this.permissions;
+    return findPermissions;
+  }
+
+  public async findById(id: string): Promise<Permission | undefined> {
+    const findPermission = this.permissions.find(
+      permission => permission.id === id,
+    );
+    return findPermission;
+  }
 }
 
 export default PermissionsRepository;

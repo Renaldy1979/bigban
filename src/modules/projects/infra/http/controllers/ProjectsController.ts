@@ -67,34 +67,34 @@ export default class ProjectsController {
 
     const showProject = await showProjects.execute(id);
 
-    const project = {
-      project_id: showProject.id,
-      name: showProject.name,
-      code: showProject.code,
-      initiative: showProject.initiative,
-      segment_priority: showProject.segment_priority,
-      portfolio: showProject.portfolio,
-      effort: showProject.effort,
-      brief_description: showProject.brief_description,
-      justification: showProject.justification,
-      requester: [showProject.requester.id, showProject.requester.name],
-      request_date: showProject.request_date,
-      scope_date: showProject.scope_date,
-      shipping_date: showProject.shipping_date,
-      post_date: showProject.post_date,
-      rollout_date: showProject.rollout_date,
-      expectation_date: showProject.expectation_date,
-      validated_scope: showProject.validated_scope,
-      responsible_status: showProject.responsible_status,
-      internal_status: showProject.internal_status,
-      internal_book: showProject.internal_book,
-      created_by: showProject.created_by,
-      created_at: showProject.created_at,
-      updated_by: showProject.updated_by,
-      updated_at: showProject.updated_at,
-    };
+    // const project = {
+    //   project_id: showProject.id,
+    //   name: showProject.name,
+    //   code: showProject.code,
+    //   initiative: showProject.initiative,
+    //   segment_priority: showProject.segment_priority,
+    //   portfolio: showProject.portfolio,
+    //   effort: showProject.effort,
+    //   brief_description: showProject.brief_description,
+    //   justification: showProject.justification,
+    //   requester: [showProject.requester.id, showProject.requester.name],
+    //   request_date: showProject.request_date,
+    //   scope_date: showProject.scope_date,
+    //   shipping_date: showProject.shipping_date,
+    //   post_date: showProject.post_date,
+    //   rollout_date: showProject.rollout_date,
+    //   expectation_date: showProject.expectation_date,
+    //   validated_scope: showProject.validated_scope,
+    //   responsible_status: showProject.responsible_status,
+    //   internal_status: showProject.internal_status,
+    //   internal_book: showProject.internal_book,
+    //   created_by: showProject.created_by,
+    //   created_at: showProject.created_at,
+    //   updated_by: showProject.updated_by,
+    //   updated_at: showProject.updated_at,
+    // };
 
-    return response.json(project);
+    return response.json(showProject);
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
@@ -165,6 +165,6 @@ export default class ProjectsController {
 
     const projects = await deleteProjects.execute(id);
 
-    return response.json(projects);
+    return response.status(200).json({ message: projects });
   }
 }

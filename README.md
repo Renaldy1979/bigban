@@ -21,18 +21,17 @@ Role: tabela de papeis ex: ADM, USER, GUEST; vai contar um combo de permissões 
 permissions_roles: tabela pivo many-to-many entre Role e Permission
 Permissions: tabela de permissões exs: pode editar, pode visualizar, pode criar, pode apagar;
 
-Cria primeiro as permissões e depois atribiu a Role, que é um conjunto de permissões.
-Depoiso usuário terá a Role.
-
 #### Cadastro de Projetos
 RF
-1. O usuário deve poder cadastrar um projeto;
+1. O usuário deve poder cadastrar projetos;
 2. O usuário deve listar uma lista de solicitantes de projetos;
 
 RN
-1. Cada projeto deve ter um nome e uma breve descrição;
-2. O usuário não pode cadastrar um projeto em nome de outro usuário;
+1. O usuário não pode cadastrar um projeto sem informar um nome
+2. O usuário não pode cadastrar um projeto sem informar uma breve descrição;
 3. O status inicial de um projeto deve ser NECESSIADADE ENVIADA PARA ANÁLISE;
+4. O usuário não pode cadastrar um projeto informando um código de demanda que já exista.
+5. O usuário que estiver como solicitante deve receber uma notificação após o cadastro do projeto
 
 #### Comentários do Projeto
 
@@ -40,7 +39,8 @@ RF
 1. O usuário deve poder listar os comentários do projeto;
 
 RN
-1. O usuário não pode criar ou alterar comentário de um projeo que ele não tem permissão;
+1. O usuário não pode criar ou alterar comentário de um projeto que ele não tem permissão;
+
 
 RN
 
@@ -58,7 +58,7 @@ RN
 
 <p><b> Users </b></p>
 <p>
-- [x] Create <br/>
+- [X] Create <br/>
 - [x] Show<br/>
 - [x] Index<br/>
 - [x] Update<br/>
@@ -74,34 +74,46 @@ RN
 - [x] Delete<br/>
 </p>
 
+<p><b> Comments </b></p>
+<p>
+- [X] Create <br/>
+- [ ] Show<br/>
+- [ ] Index<br/>
+- [ ] Update<br/>
+- [ ] Delete<br/>
+</p>
+
 <p><b> Roles </b></p>
 <p>
-[ ] Create <br/>
-[ ] Show<br/>
-[ ] Index<br/>
-[ ] Update<br/>
-[ ] Delete<br/>
+- [x] Create <br/>
+- [ ] Show<br/>
+- [x] Index<br/>
+- [x] Update<br/>
+- [ ] Delete<br/>
 </p>
 
 <p><b> Permissions </b></p>
 <p>
-[ ] Create <br/>
-[ ] Show<br/>
-[ ] Index<br/>
-[ ] Update<br/>
-[ ] Delete<br/>
+- [x] Create <br/>
+- [ ] Show<br/>
+- [x] Index<br/>
+- [x] Update<br/>
+- [ ] Delete<br/>
 </p>
 
 <p><b> Authentication </b></p>
 
+- [x] Generate
+- [x] Validation
+
 <p><b> Relations </b></p>
 
-[ ] User <=> Roles<br/>
-[ ] Permission <=> Roles<br/>
+- [x] User <=> Roles<br/>
+- [x] Permission <=> Roles<br/>
 
 <p><b> Reports </b></p>
 
-[ ] Project Status
+- [ ] Project Status
 ---
 </p>
 

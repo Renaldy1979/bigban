@@ -76,10 +76,12 @@ class ProjectsRepository implements IProjectRepository {
     return projects;
   }
 
-  public async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<boolean> {
     const findIndex = this.projects.findIndex(project => project.id === id);
 
     this.projects.splice(findIndex, 1);
+
+    return true;
   }
 
   public async show(id: string): Promise<Project | undefined> {
@@ -94,6 +96,12 @@ class ProjectsRepository implements IProjectRepository {
     );
 
     return findProjectCode;
+  }
+
+  public async findById(id: string): Promise<Project | undefined> {
+    const findProject = this.projects.find(project => project.id === id);
+
+    return findProject;
   }
 }
 

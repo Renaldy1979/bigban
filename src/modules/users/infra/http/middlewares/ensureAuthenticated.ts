@@ -48,8 +48,8 @@ export default function is(role: string[]) {
     response: Response,
     next: NextFunction,
   ) => {
-    return next();
     const user = await decoder(request);
+    return next();
 
     // eslint-disable-next-line no-shadow
     const userRoles = user?.roles.map(role => role.name);

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import IndexUserService from '@modules/users/services/IndexUserService';
 import ShowUserService from '@modules/users/services/ShowUserService';
@@ -18,16 +19,7 @@ export default class UsersController {
       roles,
     });
 
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-      roles: user.roles,
-    };
-
-    return response.json(userWithoutPassword);
+    return response.json(classToClass(user));
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
@@ -35,11 +27,11 @@ export default class UsersController {
 
     const user = await ListUsers.execute();
 
-    return response.json(user);
+    return response.json(classToClass(user));
   }
 
   public async save(request: Request, response: Response): Promise<Response> {
-    const { user_id, name, email, password } = request.body;
+    const { user_id, name, email, password, old_password } = request.body;
 
     const updateUser = container.resolve(UpdateUserService);
 
@@ -48,9 +40,10 @@ export default class UsersController {
       name,
       email,
       password,
+      old_password,
     });
 
-    return response.json(user);
+    return response.json(classToClass(user));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -60,6 +53,6 @@ export default class UsersController {
 
     const user = await showUser.execute(id);
 
-    return response.json(user);
+    return response.json(classToClass(user));
   }
 }

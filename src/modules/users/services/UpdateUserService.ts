@@ -48,9 +48,7 @@ class UpdateUserService {
       user.email = email;
 
       if (password && !old_password) {
-        throw new AppError(
-          'You need inform the old passwor to set a new password.',
-        );
+        throw new AppError('You need inform the old-password to set a new.');
       }
 
       if (password && old_password) {

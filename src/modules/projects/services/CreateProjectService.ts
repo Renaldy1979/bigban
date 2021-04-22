@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import INofiticationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import Project from '../infra/typeorm/entities/Project';
 
 import IProjectsRepository from '../repositories/IProjectsRepository';
@@ -33,6 +34,9 @@ class CreateProjectService {
   constructor(
     @inject('ProjectsRepository')
     private projectsRepository: IProjectsRepository,
+
+    @inject('NotificationsRepository')
+    private notificationsRepository: INofiticationsRepository,
   ) {}
 
   public async execute({
@@ -65,6 +69,10 @@ class CreateProjectService {
       throw new AppError('This project is already booked');
     }
 
+    if (!brief_description) {
+      throw new AppError('the field brief-description was not informed');
+    }
+
     const project = await this.projectsRepository.create({
       name,
       code,
@@ -87,6 +95,11 @@ class CreateProjectService {
       internal_book,
       created_by: userLogged,
       updated_by: userLogged,
+    });
+
+    await this.notificationsRepository.create({
+      recipient_id: requester_id,
+      content: `Um novo projeto foi adicionado tendo você como solicitante`,
     });
 
     return project;

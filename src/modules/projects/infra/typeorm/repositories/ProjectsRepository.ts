@@ -29,14 +29,15 @@ class ProjectsRepository implements IProjectRepository {
     return projects;
   }
 
-  public async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<boolean> {
     await this.ormRepository.delete(id);
+    return true;
   }
 
   public async show(id: string): Promise<Project | undefined> {
     const findProject = await this.ormRepository.findOne({
       where: { id },
-      relations: ['requester', 'creater', 'updater'],
+      relations: ['requester', 'creater', 'updater', 'comments'],
     });
 
     return findProject;
@@ -44,6 +45,12 @@ class ProjectsRepository implements IProjectRepository {
 
   public async findByCode(code: string): Promise<Project | undefined> {
     const findProject = await this.ormRepository.findOne({ where: { code } });
+
+    return findProject;
+  }
+
+  public async findById(id: string): Promise<Project | undefined> {
+    const findProject = await this.ormRepository.findOne({ where: { id } });
 
     return findProject;
   }

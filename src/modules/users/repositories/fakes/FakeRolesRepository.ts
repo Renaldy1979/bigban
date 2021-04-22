@@ -26,6 +26,24 @@ class RolesRepository implements IRolesRepository {
 
     return findRoles;
   }
+
+  public async findById(id: string): Promise<Role | undefined> {
+    const findRole = this.roles.find(role => role.id === id);
+    return findRole;
+  }
+
+  public async index(): Promise<Role[]> {
+    const findRoles = this.roles;
+    return findRoles;
+  }
+
+  public async save(role: Role): Promise<Role> {
+    const findIndex = this.roles.findIndex(findRole => findRole.id === role.id);
+
+    this.roles[findIndex] = role;
+
+    return role;
+  }
 }
 
 export default RolesRepository;

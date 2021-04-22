@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreateComments1618196546044 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -14,12 +19,12 @@ export default class CreateComments1618196546044 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'comment',
+            name: 'description',
             type: 'varchar',
           },
           {
-            name: 'comment_date',
-            type: 'timestamp with time zone',
+            name: 'project_id',
+            type: 'uuid',
           },
           {
             name: 'creater_id',
@@ -38,9 +43,35 @@ export default class CreateComments1618196546044 implements MigrationInterface {
         ],
       }),
     );
+
+    await queryRunner.createForeignKey(
+      'comments',
+      new TableForeignKey({
+        name: 'CommentCreater',
+        columnNames: ['creater_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'users',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      }),
+    );
+
+    await queryRunner.createForeignKey(
+      'comments',
+      new TableForeignKey({
+        name: 'CommentProject',
+        columnNames: ['project_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'projects',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('comments', 'CommentProject');
+    await queryRunner.dropForeignKey('comments', 'CommentCreater');
     await queryRunner.dropTable('comments');
   }
 }

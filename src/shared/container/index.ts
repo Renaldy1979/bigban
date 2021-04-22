@@ -18,6 +18,12 @@ import PermissionsRepository from '@modules/users/infra/typeorm/repositories/Per
 import IRolesRepository from '@modules/users/repositories/IRolesRepository';
 import RolesRepository from '@modules/users/infra/typeorm/repositories/RolesRepository';
 
+import ICommentsRepository from '@modules/projects/repositories/ICommentsRepository';
+import CommentsRepository from '@modules/projects/infra/typeorm/repositories/CommentsRepository';
+
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+
 container.registerSingleton<IProjectsRepository>(
   'ProjectsRepository',
   ProjectsRepository,
@@ -41,4 +47,14 @@ container.registerSingleton<IPermissionsRepository>(
 container.registerSingleton<IRolesRepository>(
   'RolesRepository',
   RolesRepository,
+);
+
+container.registerSingleton<ICommentsRepository>(
+  'CommentsRepository',
+  CommentsRepository,
+);
+
+container.registerSingleton<INotificationsRepository>(
+  'NotificationsRepository',
+  NotificationsRepository,
 );

@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import Comment from '@modules/projects/infra/typeorm/entities/Comment';
 
 @Entity('projects')
 class Project {
@@ -42,22 +44,22 @@ class Project {
   @Column()
   requester_id: string;
 
-  @CreateDateColumn()
+  @Column()
   request_date: Date;
 
-  @CreateDateColumn()
+  @Column()
   scope_date: Date;
 
-  @CreateDateColumn()
+  @Column()
   shipping_date: Date;
 
-  @CreateDateColumn()
+  @Column()
   post_date: Date;
 
-  @CreateDateColumn()
+  @Column()
   rollout_date: Date;
 
-  @CreateDateColumn()
+  @Column()
   expectation_date: Date;
 
   @Column()
@@ -95,6 +97,9 @@ class Project {
   @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'updated_by' })
   updater: User;
+
+  @OneToMany(() => Comment, comment => comment.project)
+  comments: Comment[];
 }
 
 export default Project;
