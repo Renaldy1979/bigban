@@ -1,6 +1,6 @@
 <p align="center">🎉
   <a href="#-sobre"> Sobre </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-documentacao"> Documentação </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentação"> Documentação </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-material-de-apoio"> Material de apoio </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#️-funcionalidades"> Funcionalidades </a>
 </p>
@@ -57,49 +57,44 @@ RN
 ## ☑️ Funcionalidades
 
 <p><b> Users </b></p>
-<p>
+
 - [X] Create <br/>
 - [x] Show<br/>
 - [x] Index<br/>
 - [x] Update<br/>
 - [ ] Delete<br/>
-</p>
 
 <p><b> Projects </b></p>
-<p>
+
 - [x] Create <br/>
 - [x] Show<br/>
 - [x] Index<br/>
 - [x] Update<br/>
 - [x] Delete<br/>
-</p>
 
 <p><b> Comments </b></p>
-<p>
+
 - [X] Create <br/>
 - [ ] Show<br/>
 - [ ] Index<br/>
 - [ ] Update<br/>
 - [ ] Delete<br/>
-</p>
 
 <p><b> Roles </b></p>
-<p>
+
 - [x] Create <br/>
 - [ ] Show<br/>
 - [x] Index<br/>
 - [x] Update<br/>
 - [ ] Delete<br/>
-</p>
 
 <p><b> Permissions </b></p>
-<p>
+
 - [x] Create <br/>
 - [ ] Show<br/>
 - [x] Index<br/>
 - [x] Update<br/>
 - [ ] Delete<br/>
-</p>
 
 <p><b> Authentication </b></p>
 
