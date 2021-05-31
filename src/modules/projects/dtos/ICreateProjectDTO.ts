@@ -16,8 +16,7 @@ export default interface ICreateProjectDTO {
   expectation_date: Date;
   validated_scope: string;
   responsible_status: string;
-  internal_status: string;
-  internal_book: string;
+  status_id: string;
   created_by: string;
   updated_by: string;
 }

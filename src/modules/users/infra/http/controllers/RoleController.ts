@@ -28,7 +28,7 @@ export default class RoleController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { role_id, name, description } = request.body;
+    const { role_id, name, description, permissions } = request.body;
 
     const updateRole = container.resolve(UpdateRolesService);
 
@@ -36,6 +36,7 @@ export default class RoleController {
       role_id,
       name,
       description,
+      permissions,
     });
 
     return response.json(role);

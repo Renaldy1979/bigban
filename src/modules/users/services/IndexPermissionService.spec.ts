@@ -23,6 +23,6 @@ describe('IndexPermission', () => {
 
     const listPermissions = await indexPermission.execute();
 
-    await expect(listPermissions).toEqual([permission1, permission2]);
+    expect(listPermissions).toEqual([permission1, permission2]);
   });
 });

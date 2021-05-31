@@ -21,6 +21,15 @@ class RolesRepository implements IRolesRepository {
     return findPermission;
   }
 
+  public async findByDescription(
+    description: string,
+  ): Promise<Role | undefined> {
+    const findPermission = this.roles.find(
+      role => role.description === description,
+    );
+    return findPermission;
+  }
+
   public async findByIds(id: string[]): Promise<Role[] | undefined> {
     const findRoles = this.roles.filter(role => id.includes(role.id));
 

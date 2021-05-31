@@ -7,6 +7,8 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import permissionRouter from '@modules/users/infra/http/routes/permissions.routes';
 import roleRouter from '@modules/users/infra/http/routes/roles.route';
 import commentRouter from '@modules/projects/infra/http/routes/comments.routes';
+import statusRouter from '@modules/projects/infra/http/routes/status.routes';
+import commentTypeRouter from '@modules/projects/infra/http/routes/commentType.routes';
 
 const routes = Router();
 
@@ -18,5 +20,7 @@ routes.use('/profile', profileRouter);
 routes.use('/permissions', permissionRouter);
 routes.use('/roles', roleRouter);
 routes.use('/comments', commentRouter);
+routes.use('/status', statusRouter);
+routes.use('/comment-type', commentTypeRouter);
 
 export default routes;

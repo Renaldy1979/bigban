@@ -50,4 +50,20 @@ describe('CreateRole', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to create a new role with the same description from another', async () => {
+    await fakeRolesRepository.create({
+      name: 'Role 01',
+      description: 'Description of role 01',
+      permissions: [],
+    });
+
+    await expect(
+      createRole.execute({
+        name: 'Role 02',
+        description: 'Description of role 01',
+        permissions: [],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

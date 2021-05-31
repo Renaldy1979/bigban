@@ -23,6 +23,6 @@ describe('IndexRoles', () => {
 
     const listRoles = await indexRole.execute();
 
-    await expect(listRoles).toEqual([role1, role2]);
+    expect(listRoles).toEqual([role1, role2]);
   });
 });

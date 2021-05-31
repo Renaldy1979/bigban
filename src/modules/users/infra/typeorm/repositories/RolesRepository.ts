@@ -25,6 +25,13 @@ class RolesRepository implements IRolesRepository {
     return role;
   }
 
+  public async findByDescription(
+    description: string,
+  ): Promise<Role | undefined> {
+    const role = await this.ormRepository.findOne({ where: { description } });
+    return role;
+  }
+
   public async findByIds(id: string[]): Promise<Role[] | undefined> {
     const roles = await this.ormRepository.findByIds(id);
     return roles;
@@ -40,8 +47,8 @@ class RolesRepository implements IRolesRepository {
     return roles;
   }
 
-  public async save(user: Role): Promise<Role> {
-    return this.ormRepository.save(user);
+  public async save(role: Role): Promise<Role> {
+    return this.ormRepository.save(role);
   }
 }
 

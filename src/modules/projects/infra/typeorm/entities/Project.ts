@@ -11,6 +11,7 @@ import {
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import Comment from '@modules/projects/infra/typeorm/entities/Comment';
+import Status from '@modules/projects/infra/typeorm/entities/Status';
 
 @Entity('projects')
 class Project {
@@ -44,22 +45,26 @@ class Project {
   @Column()
   requester_id: string;
 
-  @Column()
+  @ManyToOne(() => User, user => user.id)
+  @JoinColumn({ name: 'requester_id' })
+  requester: User;
+
+  @Column({ type: 'time with time zone' })
   request_date: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   scope_date: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   shipping_date: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   post_date: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   rollout_date: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   expectation_date: Date;
 
   @Column()
@@ -69,30 +74,21 @@ class Project {
   responsible_status: string;
 
   @Column()
-  internal_status: string;
+  status_id: string;
 
-  @Column()
-  internal_book: string;
+  @ManyToOne(() => Status, status => status.id)
+  @JoinColumn({ name: 'status_id' })
+  status: Status;
 
-  @ManyToOne(() => User, user => user.id)
-  @JoinColumn({ name: 'requester_id' })
-  requester: User;
-
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   created_at: Date;
-
-  @Column()
-  created_by: string;
 
   @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'created_by' })
   creater: User;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
-
-  @Column()
-  updated_by: string;
 
   @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'updated_by' })

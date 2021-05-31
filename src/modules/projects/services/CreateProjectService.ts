@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import INofiticationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import Project from '../infra/typeorm/entities/Project';
 
 import IProjectsRepository from '../repositories/IProjectsRepository';
@@ -25,8 +26,7 @@ interface IRequest {
   expectation_date: Date;
   validated_scope: string;
   responsible_status: string;
-  internal_status: string;
-  internal_book: string;
+  status_id: string;
   userLogged: string;
 }
 @injectable()
@@ -37,6 +37,9 @@ class CreateProjectService {
 
     @inject('NotificationsRepository')
     private notificationsRepository: INofiticationsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -57,8 +60,7 @@ class CreateProjectService {
     expectation_date,
     validated_scope,
     responsible_status,
-    internal_status,
-    internal_book,
+    status_id,
     userLogged,
   }: IRequest): Promise<Project> {
     const findProjectsInSameCode = await this.projectsRepository.findByCode(
@@ -91,8 +93,7 @@ class CreateProjectService {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
       created_by: userLogged,
       updated_by: userLogged,
     });
@@ -102,6 +103,7 @@ class CreateProjectService {
       content: `Um novo projeto foi adicionado tendo você como solicitante`,
     });
 
+    await this.cacheProvider.invalidatePrefix('projects-list');
     return project;
   }
 }

@@ -14,6 +14,11 @@ rolesRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       description: Joi.string().required(),
+      permissions: Joi.array()
+        .items(Joi.string().uuid())
+        .min(1)
+        .required()
+        .unique(),
     },
   }),
   roleController.create,
@@ -25,8 +30,10 @@ rolesRouter.put(
   '/',
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
+      role_id: Joi.string().uuid().required(),
+      name: Joi.string().optional(),
+      description: Joi.string().optional(),
+      permissions: Joi.array().items(Joi.string().uuid()).min(1).unique(),
     },
   }),
   roleController.update,

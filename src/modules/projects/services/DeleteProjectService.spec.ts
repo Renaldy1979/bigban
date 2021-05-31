@@ -1,14 +1,20 @@
 import AppError from '@shared/errors/AppError';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
 import DeleteProjectService from './DeleteProjectService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let deleteProject: DeleteProjectService;
+let fakeCacheProvider: FakeCacheProvider;
 
 describe('DeleteProject', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
-    deleteProject = new DeleteProjectService(fakeProjectsRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    deleteProject = new DeleteProjectService(
+      fakeProjectsRepository,
+      fakeCacheProvider,
+    );
   });
   it('should be able to delete the project', async () => {
     const project = await fakeProjectsRepository.create({
@@ -29,8 +35,7 @@ describe('DeleteProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -67,8 +72,7 @@ describe('DeleteProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -97,8 +101,7 @@ describe('DeleteProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });

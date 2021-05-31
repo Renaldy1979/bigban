@@ -5,10 +5,12 @@ import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 import FakeRolesRepository from '../repositories/fakes/FakeRolesRepository';
+import FakeUsersTokensRepository from '../repositories/fakes/FakeUsersTokensRepository';
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeHashProvider: FakeHashProvider;
 let fakeRolesRepository: FakeRolesRepository;
+let fakeUsersTokensRepository: FakeUsersTokensRepository;
 let authenticateUser: AuthenticateUserService;
 let createUser: CreateUserService;
 
@@ -17,10 +19,12 @@ describe('AuthenticateUser', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeHashProvider = new FakeHashProvider();
     fakeRolesRepository = new FakeRolesRepository();
+    fakeUsersTokensRepository = new FakeUsersTokensRepository();
 
     authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
       fakeHashProvider,
+      fakeUsersTokensRepository,
     );
 
     createUser = new CreateUserService(

@@ -1,13 +1,19 @@
 import FakeProjectsRepository from '@modules/projects/repositories/fakes/FakeProjectsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import IndexProjectsService from './IndexProjectsService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let indexProjects: IndexProjectsService;
+let fakeCacheProvider: FakeCacheProvider;
 
 describe('ListProjects', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
-    indexProjects = new IndexProjectsService(fakeProjectsRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    indexProjects = new IndexProjectsService(
+      fakeProjectsRepository,
+      fakeCacheProvider,
+    );
   });
   it('should be able to list all projects', async () => {
     const project1 = await fakeProjectsRepository.create({
@@ -28,8 +34,7 @@ describe('ListProjects', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -52,8 +57,7 @@ describe('ListProjects', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });

@@ -14,9 +14,14 @@ commentsRouter.post(
     [Segments.BODY]: {
       description: Joi.string().required(),
       project_id: Joi.string().uuid().required(),
+      type_id: Joi.string().required(),
     },
   }),
   commentsController.create,
 );
+
+commentsRouter.get('/:id', commentsController.show);
+
+commentsRouter.get('/project/:id', commentsController.indexInProjects);
 
 export default commentsRouter;

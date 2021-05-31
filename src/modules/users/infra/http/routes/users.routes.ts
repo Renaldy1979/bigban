@@ -12,16 +12,16 @@ import UserAvatarController from '../controllers/UserAvatarController';
 const usersRouter = Router();
 const userAvatarController = new UserAvatarController();
 const usersController = new UsersController();
-const upload = multer(uploadConfig);
+const upload = multer(uploadConfig.multer);
 
 usersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-      roles: Joi.array().items(Joi.string().uuid().min(1)).required(),
+      email: Joi.string().required().email().lowercase(),
+      password: Joi.string().required().min(6).max(15),
+      roles: Joi.array().items(Joi.string().uuid()).min(1).unique().optional(),
     },
   }),
   usersController.create,
@@ -32,7 +32,7 @@ usersRouter.put(
   celebrate({
     [Segments.BODY]: {
       user_id: Joi.string().uuid().required(),
-      name: Joi.string(),
+      name: Joi.string().optional(),
       email: Joi.string().email(),
       old_password: Joi.string(),
       password: Joi.when('old_password', {
@@ -43,7 +43,7 @@ usersRouter.put(
         is: Joi.exist(),
         then: Joi.valid(Joi.ref('password')).required(),
       }),
-      roles: Joi.array().items(Joi.string().uuid()),
+      roles: Joi.array().items(Joi.string().uuid()).min(1).optional().unique(),
     },
   }),
   is(['ROLE_ADMIN', 'ROLE_USER']),
@@ -69,6 +69,5 @@ usersRouter.get(
   is(['ROLE_ADMIN', 'ROLE_USER']),
   usersController.show,
 );
-usersRouter.get('/', is(['ROLE_ADMIN', 'ROLE_USER']), usersController.show);
 
 export default usersRouter;

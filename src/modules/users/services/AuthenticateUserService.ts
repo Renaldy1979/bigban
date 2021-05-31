@@ -7,8 +7,10 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import { add } from 'date-fns';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
+import IUsersTokensRepository from '../repositories/IUsersTokensRepository';
 
 interface IRequest {
   email: string;
@@ -18,7 +20,17 @@ interface IRequest {
 interface IResponse {
   user: User;
   token: string;
+  refresh_token: string;
 }
+
+interface IConfig {
+  secret: string;
+  expiresIn: string;
+  secretRefreshToken: string;
+  expiresInRefreshToken: string;
+  expiresInRefreshTokenDays: number;
+}
+
 @injectable()
 class AuthenticateUserService {
   constructor(
@@ -27,6 +39,9 @@ class AuthenticateUserService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('UsersTokensRepository')
+    private UsersTokensRepository: IUsersTokensRepository,
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -44,18 +59,44 @@ class AuthenticateUserService {
     if (!passwordMatched) {
       throw new AppError('Incorrect email/password combination.', 401);
     }
-    const { secret, expiresIn } = authConfig.jwt;
+    const {
+      secret,
+      expiresIn,
+      secretRefreshToken,
+      expiresInRefreshToken,
+      expiresInRefreshTokenDays,
+    } = authConfig.jwt as IConfig;
 
     const userRoles = user.roles.map(role => role.name).toString();
 
-    const token = sign({ roles: userRoles }, secret, {
+    const token = sign({ email, roles: userRoles }, secret, {
       subject: user.id,
       expiresIn,
+    });
+
+    const refresh_token = sign(
+      { email, roles: userRoles },
+      secretRefreshToken,
+      {
+        subject: user.id,
+        expiresIn: expiresInRefreshToken,
+      },
+    );
+
+    const refresh_token_expires_date = add(new Date(), {
+      days: expiresInRefreshTokenDays,
+    });
+
+    await this.UsersTokensRepository.generate({
+      user_id: user.id,
+      refresh_token,
+      expires_date: refresh_token_expires_date,
     });
 
     return {
       user,
       token,
+      refresh_token,
     };
   }
 }

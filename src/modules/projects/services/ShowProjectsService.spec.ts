@@ -29,8 +29,7 @@ describe('ShowProjects', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -68,8 +67,7 @@ describe('ShowProjects', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });

@@ -10,6 +10,7 @@ class CommentsRepository implements ICommentsRepository {
     description,
     creater_id,
     project_id,
+    type_id,
   }: ICreateCommentDTO): Promise<Comment> {
     const comment = new Comment();
 
@@ -18,6 +19,7 @@ class CommentsRepository implements ICommentsRepository {
       description,
       creater_id,
       project_id,
+      type_id,
     });
 
     this.comments.push(comment);
@@ -40,8 +42,10 @@ class CommentsRepository implements ICommentsRepository {
     this.comments.splice(findIndex, 1);
   }
 
-  public async show(id: string): Promise<Comment | undefined> {
-    const findComment = this.comments.find(comment => comment.id === id);
+  public async show(project_id: string): Promise<Comment | undefined> {
+    const findComment = this.comments.find(
+      comment => comment.project_id === project_id,
+    );
 
     return findComment;
   }

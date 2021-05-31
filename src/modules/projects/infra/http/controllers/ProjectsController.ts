@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 import CreateProjectService from '@modules/projects/services/CreateProjectService';
 import ShowProjectsService from '@modules/projects/services/ShowProjectsService';
 import UpdateProjectService from '@modules/projects/services/UpdateProjectService';
@@ -26,8 +27,7 @@ export default class ProjectsController {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
     } = request.body;
 
     const createProject = container.resolve(CreateProjectService);
@@ -52,12 +52,11 @@ export default class ProjectsController {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
       userLogged,
     });
 
-    return response.json(project);
+    return response.json(classToClass(project));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -65,36 +64,9 @@ export default class ProjectsController {
 
     const showProjects = container.resolve(ShowProjectsService);
 
-    const showProject = await showProjects.execute(id);
+    const project = await showProjects.execute(id);
 
-    // const project = {
-    //   project_id: showProject.id,
-    //   name: showProject.name,
-    //   code: showProject.code,
-    //   initiative: showProject.initiative,
-    //   segment_priority: showProject.segment_priority,
-    //   portfolio: showProject.portfolio,
-    //   effort: showProject.effort,
-    //   brief_description: showProject.brief_description,
-    //   justification: showProject.justification,
-    //   requester: [showProject.requester.id, showProject.requester.name],
-    //   request_date: showProject.request_date,
-    //   scope_date: showProject.scope_date,
-    //   shipping_date: showProject.shipping_date,
-    //   post_date: showProject.post_date,
-    //   rollout_date: showProject.rollout_date,
-    //   expectation_date: showProject.expectation_date,
-    //   validated_scope: showProject.validated_scope,
-    //   responsible_status: showProject.responsible_status,
-    //   internal_status: showProject.internal_status,
-    //   internal_book: showProject.internal_book,
-    //   created_by: showProject.created_by,
-    //   created_at: showProject.created_at,
-    //   updated_by: showProject.updated_by,
-    //   updated_at: showProject.updated_at,
-    // };
-
-    return response.json(showProject);
+    return response.json(classToClass(project));
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
@@ -102,7 +74,7 @@ export default class ProjectsController {
 
     const projects = await showProjects.execute();
 
-    return response.json(projects);
+    return response.json(classToClass(projects));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -125,8 +97,7 @@ export default class ProjectsController {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
     } = request.body;
 
     const updateProject = container.resolve(UpdateProjectService);
@@ -150,12 +121,11 @@ export default class ProjectsController {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
       userLogged,
     });
 
-    return response.json(project);
+    return response.json(classToClass(project));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

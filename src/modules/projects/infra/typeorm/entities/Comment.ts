@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import Project from '@modules/projects/infra/typeorm/entities/Project';
+import CommentType from '@modules/projects/infra/typeorm/entities/CommentType';
 
 @Entity('comments')
 class Comment {
@@ -18,6 +20,13 @@ class Comment {
 
   @Column()
   description: string;
+
+  @Column()
+  type_id: string;
+
+  @OneToOne(() => CommentType, type => type.id)
+  @JoinColumn({ name: 'type_id' })
+  type: CommentType;
 
   @Column()
   project_id: string;
@@ -33,10 +42,10 @@ class Comment {
   @JoinColumn({ name: 'creater_id' })
   creater: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   created_at: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
 }
 

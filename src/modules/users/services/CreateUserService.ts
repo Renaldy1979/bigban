@@ -1,3 +1,4 @@
+import Role from '@modules/users/infra/typeorm/entities/Role';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -12,8 +13,6 @@ interface IRequest {
   password: string;
   roles?: string[];
 }
-
-let rolesFind: string[];
 
 @injectable()
 class CreateUserService {
@@ -36,16 +35,17 @@ class CreateUserService {
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
+    let existsRoles: Role[] | undefined;
+
     if (checkUserExists) {
       throw new AppError('Email adrress already used');
     }
+
     const hashedPasword = await this.hashProvider.generateHash(password);
 
     if (roles) {
-      rolesFind = roles;
+      existsRoles = await this.rolesRepository.findByIds(roles);
     }
-    const existsRoles = await this.rolesRepository.findByIds(rolesFind);
-
     const user = await this.usersRepository.create({
       name,
       email,

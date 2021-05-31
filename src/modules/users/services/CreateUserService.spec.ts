@@ -33,7 +33,7 @@ describe('CreateUser', () => {
 
     const user = await createUser.execute({
       name: 'John Doe',
-      email: 'renaldy.sousa@gmail.com',
+      email: 'johndoe@example.com.br',
       password: '123456',
       roles: [role1.id, role2.id],
     });
@@ -44,7 +44,7 @@ describe('CreateUser', () => {
   it('should be not able to create a new user with same email from another', async () => {
     await fakeUsersRepository.create({
       name: 'John Doe',
-      email: 'renaldy.sousa@gmail.com',
+      email: 'johndoe@example.com.br',
       password: '123456',
       roles: [],
     });
@@ -52,7 +52,7 @@ describe('CreateUser', () => {
     await expect(
       createUser.execute({
         name: 'John Trê',
-        email: 'renaldy.sousa@gmail.com',
+        email: 'johndoe@example.com.br',
         password: '654321',
         roles: [],
       }),

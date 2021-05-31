@@ -1,14 +1,20 @@
 import AppError from '@shared/errors/AppError';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
 import UpdateProjectService from './UpdateProjectService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let updateProject: UpdateProjectService;
+let fakeCacheProvider: FakeCacheProvider;
 
 describe('UpdateProject', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
-    updateProject = new UpdateProjectService(fakeProjectsRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    updateProject = new UpdateProjectService(
+      fakeProjectsRepository,
+      fakeCacheProvider,
+    );
   });
   it('should be able to update the project', async () => {
     const project = await fakeProjectsRepository.create({
@@ -29,8 +35,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: 'user-logged',
       updated_by: 'user-logged',
     });
@@ -54,14 +59,12 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: 'Updated',
       responsible_status: 'Updated',
-      internal_status: 'Updated',
-      internal_book: 'Updated',
+      status_id: 'Updated',
       userLogged: 'user-logged',
     });
 
     expect(projectUpdated.name).toBe('Projeto Teste 01 - Updated');
     expect(projectUpdated.code).toBe('DM2020145 - Updated');
-    expect(projectUpdated.updated_by).toBe('user-logged');
   });
 
   it('should not be able to update the project non-exists-project-id', async () => {
@@ -83,8 +86,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -109,8 +111,7 @@ describe('UpdateProject', () => {
         expectation_date: new Date(),
         validated_scope: 'Updated',
         responsible_status: 'Updated',
-        internal_status: 'Updated',
-        internal_book: 'Updated',
+        status_id: 'Updated',
         userLogged: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -135,8 +136,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -160,8 +160,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: 'Updated',
       responsible_status: 'Updated',
-      internal_status: 'Updated',
-      internal_book: 'Updated',
+      status_id: 'Updated',
       userLogged: 'user-logged',
     });
 
@@ -187,8 +186,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -211,8 +209,7 @@ describe('UpdateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -237,8 +234,7 @@ describe('UpdateProject', () => {
         expectation_date: new Date(),
         validated_scope: 'Updated',
         responsible_status: 'Updated',
-        internal_status: 'Updated',
-        internal_book: 'Updated',
+        status_id: 'Updated',
         userLogged: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);

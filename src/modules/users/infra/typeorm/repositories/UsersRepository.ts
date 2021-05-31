@@ -27,7 +27,9 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async index(): Promise<User[]> {
-    const users = await this.ormRepository.find();
+    const users = await this.ormRepository.find({
+      relations: ['roles'],
+    });
     return users;
   }
 

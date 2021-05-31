@@ -1,20 +1,24 @@
 import AppError from '@shared/errors/AppError';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
 import CreateProjectService from './CreateProjectService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let fakeNotificationsRepository: FakeNotificationsRepository;
 let createProject: CreateProjectService;
+let fakeCacheProvider: FakeCacheProvider;
 
 describe('CreateProject', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
     fakeNotificationsRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
 
     createProject = new CreateProjectService(
       fakeProjectsRepository,
       fakeNotificationsRepository,
+      fakeCacheProvider,
     );
   });
   it('should be able to create a new project', async () => {
@@ -36,8 +40,7 @@ describe('CreateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       userLogged: 'user-logged',
     });
 
@@ -64,8 +67,7 @@ describe('CreateProject', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       userLogged: 'user-logged',
     });
 
@@ -88,8 +90,7 @@ describe('CreateProject', () => {
         expectation_date: new Date(),
         validated_scope: '',
         responsible_status: '',
-        internal_status: '',
-        internal_book: '',
+        status_id: '',
         userLogged: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
@@ -115,8 +116,7 @@ describe('CreateProject', () => {
         expectation_date: new Date(),
         validated_scope: '',
         responsible_status: '',
-        internal_status: '',
-        internal_book: '',
+        status_id: '',
         userLogged: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);

@@ -25,10 +25,18 @@ class CreateRoleService {
     description,
     permissions,
   }: IRequest): Promise<Role> {
-    const existRole = await this.rolesRepository.findByName(name);
+    const existRoleName = await this.rolesRepository.findByName(name);
 
-    if (existRole) {
-      throw new AppError('Role already exists!');
+    if (existRoleName) {
+      throw new AppError('A rule with this name already exists');
+    }
+
+    const existRoleDescription = await this.rolesRepository.findByDescription(
+      description,
+    );
+
+    if (existRoleDescription) {
+      throw new AppError('A rule with this description already exists');
     }
 
     const existPermissions = await this.permissionsRepository.findByIds(

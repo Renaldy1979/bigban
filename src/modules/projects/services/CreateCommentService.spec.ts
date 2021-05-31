@@ -1,3 +1,4 @@
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import AppError from '@shared/errors/AppError';
 import FakeCommentsRepository from '../repositories/fakes/FakeCommentsRepository';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
@@ -6,14 +7,17 @@ import CreateCommentService from './CreateCommentService';
 let fakeCommentsRepository: FakeCommentsRepository;
 let fakeProjectsRepository: FakeProjectsRepository;
 let createComment: CreateCommentService;
+let fakeNotificationsRepository: FakeNotificationsRepository;
 
 describe('CreateComment', () => {
   beforeEach(() => {
     fakeCommentsRepository = new FakeCommentsRepository();
     fakeProjectsRepository = new FakeProjectsRepository();
+    fakeNotificationsRepository = new FakeNotificationsRepository();
     createComment = new CreateCommentService(
       fakeCommentsRepository,
       fakeProjectsRepository,
+      fakeNotificationsRepository,
     );
   });
 
@@ -36,8 +40,7 @@ describe('CreateComment', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -46,6 +49,7 @@ describe('CreateComment', () => {
       description: 'Comment 01',
       project_id: project.id,
       creater_id: 'creater-id',
+      type_id: 'type',
     });
 
     expect(comment).toHaveProperty('id');
@@ -57,6 +61,7 @@ describe('CreateComment', () => {
         description: 'Comment 01',
         project_id: 'project-id',
         creater_id: '',
+        type_id: 'type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -67,6 +72,7 @@ describe('CreateComment', () => {
         description: 'Comment 01',
         project_id: '',
         creater_id: 'creater-id',
+        type_id: 'type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -77,6 +83,7 @@ describe('CreateComment', () => {
         description: '',
         project_id: 'project-id',
         creater_id: 'creater-id',
+        type_id: 'type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -100,8 +107,7 @@ describe('CreateComment', () => {
       expectation_date: new Date(),
       validated_scope: '',
       responsible_status: '',
-      internal_status: '',
-      internal_book: '',
+      status_id: '',
       created_by: '',
       updated_by: '',
     });
@@ -111,6 +117,7 @@ describe('CreateComment', () => {
         description: 'description 123',
         project_id: 'project-id-found',
         creater_id: 'creater-id',
+        type_id: 'type',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

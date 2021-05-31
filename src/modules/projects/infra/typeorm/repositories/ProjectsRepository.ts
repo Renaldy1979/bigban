@@ -25,7 +25,9 @@ class ProjectsRepository implements IProjectRepository {
   }
 
   public async index(): Promise<Project[]> {
-    const projects = await this.ormRepository.find();
+    const projects = await this.ormRepository.find({
+      relations: ['requester', 'creater', 'updater', 'status', 'comments'],
+    });
     return projects;
   }
 
@@ -37,7 +39,7 @@ class ProjectsRepository implements IProjectRepository {
   public async show(id: string): Promise<Project | undefined> {
     const findProject = await this.ormRepository.findOne({
       where: { id },
-      relations: ['requester', 'creater', 'updater', 'comments'],
+      relations: ['requester', 'creater', 'updater', 'status', 'comments'],
     });
 
     return findProject;

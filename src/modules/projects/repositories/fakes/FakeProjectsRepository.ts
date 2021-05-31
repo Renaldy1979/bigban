@@ -24,8 +24,7 @@ class ProjectsRepository implements IProjectRepository {
     expectation_date,
     validated_scope,
     responsible_status,
-    internal_status,
-    internal_book,
+    status_id,
     created_by,
     updated_by,
   }: ICreateProjectDTO): Promise<Project> {
@@ -50,8 +49,7 @@ class ProjectsRepository implements IProjectRepository {
       expectation_date,
       validated_scope,
       responsible_status,
-      internal_status,
-      internal_book,
+      status_id,
       created_by,
       updated_by,
     });

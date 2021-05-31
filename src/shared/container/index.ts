@@ -24,6 +24,15 @@ import CommentsRepository from '@modules/projects/infra/typeorm/repositories/Com
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
 
+import IStatusRepository from '@modules/projects/repositories/IStatusRepository';
+import StatusRepository from '@modules/projects/infra/typeorm/repositories/StatusRepository';
+
+import IUsersTokensRepository from '@modules/users/repositories/IUsersTokensRepository';
+import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/UsersTokensRepository';
+
+import ICommentTypeRepository from '@modules/projects/repositories/ICommentTypeRepository';
+import CommentTypeRepository from '@modules/projects/infra/typeorm/repositories/CommentTypeRepository';
+
 container.registerSingleton<IProjectsRepository>(
   'ProjectsRepository',
   ProjectsRepository,
@@ -57,4 +66,19 @@ container.registerSingleton<ICommentsRepository>(
 container.registerSingleton<INotificationsRepository>(
   'NotificationsRepository',
   NotificationsRepository,
+);
+
+container.registerSingleton<IStatusRepository>(
+  'StatusRepository',
+  StatusRepository,
+);
+
+container.registerSingleton<IUsersTokensRepository>(
+  'UsersTokensRepository',
+  UsersTokensRepository,
+);
+
+container.registerSingleton<ICommentTypeRepository>(
+  'CommentTypeRepository',
+  CommentTypeRepository,
 );
