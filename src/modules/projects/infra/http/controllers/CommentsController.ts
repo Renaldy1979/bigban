@@ -8,16 +8,14 @@ import { classToClass } from 'class-transformer';
 
 export default class CommentsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { description, project_id, type_id } = request.body;
-
-    const userLoggerd = request.user.id;
+    const { description, project_id, type_id, creater_id } = request.body;
 
     const createComment = container.resolve(CreateCommentService);
 
     const project = await createComment.execute({
       description,
       project_id,
-      creater_id: userLoggerd,
+      creater_id,
       type_id,
     });
 

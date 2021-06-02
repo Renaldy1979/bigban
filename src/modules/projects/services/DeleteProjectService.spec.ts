@@ -36,8 +36,8 @@ describe('DeleteProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     const response = await deleteProject.execute(project.id);
@@ -73,8 +73,8 @@ describe('DeleteProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await expect(
@@ -102,8 +102,8 @@ describe('DeleteProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await expect(

@@ -35,8 +35,8 @@ describe('ListProjects', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     const project2 = await fakeProjectsRepository.create({
@@ -58,8 +58,8 @@ describe('ListProjects', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     const projects = await indexProjects.execute();

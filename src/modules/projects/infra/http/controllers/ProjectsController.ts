@@ -53,7 +53,8 @@ export default class ProjectsController {
       validated_scope,
       responsible_status,
       status_id,
-      userLogged,
+      creater_id: userLogged,
+      updater_id: userLogged,
     });
 
     return response.json(classToClass(project));
@@ -122,7 +123,7 @@ export default class ProjectsController {
       validated_scope,
       responsible_status,
       status_id,
-      userLogged,
+      updater_id: userLogged,
     });
 
     return response.json(classToClass(project));

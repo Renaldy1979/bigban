@@ -41,8 +41,8 @@ describe('CreateComment', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     const comment = await createComment.execute({
@@ -108,8 +108,8 @@ describe('CreateComment', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await expect(

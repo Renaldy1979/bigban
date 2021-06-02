@@ -80,22 +80,28 @@ class Project {
   @JoinColumn({ name: 'status_id' })
   status: Status;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  created_at: Date;
+  @Column()
+  creater_id: string;
 
   @ManyToOne(() => User, user => user.id)
-  @JoinColumn({ name: 'created_by' })
+  @JoinColumn({ name: 'creater_id' })
   creater: User;
 
-  @UpdateDateColumn({ type: 'timestamp' })
-  updated_at: Date;
+  @Column()
+  updater_id: string;
 
   @ManyToOne(() => User, user => user.id)
-  @JoinColumn({ name: 'updated_by' })
+  @JoinColumn({ name: 'updater_id' })
   updater: User;
 
   @OneToMany(() => Comment, comment => comment.project)
   comments: Comment[];
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updated_at: Date;
 }
 
 export default Project;

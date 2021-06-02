@@ -30,8 +30,8 @@ describe('ShowProjects', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     const projectSelectd = await showProjects.execute(project.id);
@@ -68,8 +68,8 @@ describe('ShowProjects', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     expect(showProjects.execute('wrong-project-id')).rejects.toBeInstanceOf(

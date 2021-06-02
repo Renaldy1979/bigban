@@ -41,7 +41,8 @@ describe('CreateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      userLogged: 'user-logged',
+      creater_id: 'user-creater',
+      updater_id: 'user-logged',
     });
 
     expect(project).toHaveProperty('id');
@@ -68,7 +69,8 @@ describe('CreateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      userLogged: 'user-logged',
+      creater_id: 'user-creater',
+      updater_id: 'user-logged',
     });
 
     await expect(
@@ -91,7 +93,8 @@ describe('CreateProject', () => {
         validated_scope: '',
         responsible_status: '',
         status_id: '',
-        userLogged: 'user-logged',
+        creater_id: 'user-creater',
+        updater_id: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -117,7 +120,8 @@ describe('CreateProject', () => {
         validated_scope: '',
         responsible_status: '',
         status_id: '',
-        userLogged: 'user-logged',
+        creater_id: 'user-creater',
+        updater_id: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

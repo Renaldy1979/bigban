@@ -66,7 +66,7 @@ export default class CreateUsers1616802121353 implements MigrationInterface {
       'projects',
       new TableForeignKey({
         name: 'ProjectCreater',
-        columnNames: ['created_by'],
+        columnNames: ['creater_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',
@@ -78,7 +78,7 @@ export default class CreateUsers1616802121353 implements MigrationInterface {
       'projects',
       new TableForeignKey({
         name: 'ProjectUpdater',
-        columnNames: ['updated_by'],
+        columnNames: ['updater_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'SET NULL',

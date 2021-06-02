@@ -17,6 +17,6 @@ export default interface ICreateProjectDTO {
   validated_scope: string;
   responsible_status: string;
   status_id: string;
-  created_by: string;
-  updated_by: string;
+  creater_id: string;
+  updater_id: string;
 }

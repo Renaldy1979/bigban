@@ -25,8 +25,8 @@ class ProjectsRepository implements IProjectRepository {
     validated_scope,
     responsible_status,
     status_id,
-    created_by,
-    updated_by,
+    creater_id,
+    updater_id,
   }: ICreateProjectDTO): Promise<Project> {
     const project = new Project();
 
@@ -50,8 +50,8 @@ class ProjectsRepository implements IProjectRepository {
       validated_scope,
       responsible_status,
       status_id,
-      created_by,
-      updated_by,
+      creater_id,
+      updater_id,
     });
 
     this.projects.push(project);

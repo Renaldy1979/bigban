@@ -1,18 +1,22 @@
 import AppError from '@shared/errors/AppError';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
 import UpdateProjectService from './UpdateProjectService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let updateProject: UpdateProjectService;
 let fakeCacheProvider: FakeCacheProvider;
+let fakeNotificationsRepository: FakeNotificationsRepository;
 
 describe('UpdateProject', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
     fakeCacheProvider = new FakeCacheProvider();
+    fakeNotificationsRepository = new FakeNotificationsRepository();
     updateProject = new UpdateProjectService(
       fakeProjectsRepository,
+      fakeNotificationsRepository,
       fakeCacheProvider,
     );
   });
@@ -36,8 +40,8 @@ describe('UpdateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: 'user-logged',
-      updated_by: 'user-logged',
+      creater_id: 'user-logged',
+      updater_id: 'user-logged',
     });
 
     const projectUpdated = await updateProject.execute({
@@ -60,7 +64,7 @@ describe('UpdateProject', () => {
       validated_scope: 'Updated',
       responsible_status: 'Updated',
       status_id: 'Updated',
-      userLogged: 'user-logged',
+      updater_id: 'user-logged',
     });
 
     expect(projectUpdated.name).toBe('Projeto Teste 01 - Updated');
@@ -87,8 +91,8 @@ describe('UpdateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await expect(
@@ -112,7 +116,7 @@ describe('UpdateProject', () => {
         validated_scope: 'Updated',
         responsible_status: 'Updated',
         status_id: 'Updated',
-        userLogged: 'user-logged',
+        updater_id: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -137,8 +141,8 @@ describe('UpdateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await updateProject.execute({
@@ -161,7 +165,7 @@ describe('UpdateProject', () => {
       validated_scope: 'Updated',
       responsible_status: 'Updated',
       status_id: 'Updated',
-      userLogged: 'user-logged',
+      updater_id: 'user-logged',
     });
 
     expect(project.code).toEqual('');
@@ -187,8 +191,8 @@ describe('UpdateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await fakeProjectsRepository.create({
@@ -210,8 +214,8 @@ describe('UpdateProject', () => {
       validated_scope: '',
       responsible_status: '',
       status_id: '',
-      created_by: '',
-      updated_by: '',
+      creater_id: '',
+      updater_id: '',
     });
 
     await expect(
@@ -235,7 +239,7 @@ describe('UpdateProject', () => {
         validated_scope: 'Updated',
         responsible_status: 'Updated',
         status_id: 'Updated',
-        userLogged: 'user-logged',
+        updater_id: 'user-logged',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

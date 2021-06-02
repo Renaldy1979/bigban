@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 
 import INofiticationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+
 import Project from '../infra/typeorm/entities/Project';
 
 import IProjectsRepository from '../repositories/IProjectsRepository';
@@ -27,7 +28,8 @@ interface IRequest {
   validated_scope: string;
   responsible_status: string;
   status_id: string;
-  userLogged: string;
+  creater_id: string;
+  updater_id: string;
 }
 @injectable()
 class CreateProjectService {
@@ -61,18 +63,23 @@ class CreateProjectService {
     validated_scope,
     responsible_status,
     status_id,
-    userLogged,
+    creater_id,
+    updater_id,
   }: IRequest): Promise<Project> {
+    if (!creater_id) {
+      throw new AppError('The user creator was not informed');
+    }
+
+    if (!brief_description) {
+      throw new AppError('The field brief-description was not informed');
+    }
+
     const findProjectsInSameCode = await this.projectsRepository.findByCode(
       code,
     );
 
     if (findProjectsInSameCode) {
       throw new AppError('This project is already booked');
-    }
-
-    if (!brief_description) {
-      throw new AppError('the field brief-description was not informed');
     }
 
     const project = await this.projectsRepository.create({
@@ -94,8 +101,8 @@ class CreateProjectService {
       validated_scope,
       responsible_status,
       status_id,
-      created_by: userLogged,
-      updated_by: userLogged,
+      creater_id,
+      updater_id,
     });
 
     await this.notificationsRepository.create({
@@ -104,6 +111,7 @@ class CreateProjectService {
     });
 
     await this.cacheProvider.invalidatePrefix('projects-list');
+
     return project;
   }
 }

@@ -21,7 +21,8 @@ class ProjectsRepository implements IProjectRepository {
   }
 
   public async save(project: Project): Promise<Project> {
-    return this.ormRepository.save(project);
+    const savedProject = await this.ormRepository.save(project);
+    return savedProject;
   }
 
   public async index(): Promise<Project[]> {

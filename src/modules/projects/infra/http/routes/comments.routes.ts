@@ -15,6 +15,7 @@ commentsRouter.post(
       description: Joi.string().required(),
       project_id: Joi.string().uuid().required(),
       type_id: Joi.string().required(),
+      creater_id: Joi.string().required(),
     },
   }),
   commentsController.create,

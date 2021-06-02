@@ -25,7 +25,7 @@ interface IRequest {
   validated_scope?: string;
   responsible_status?: string;
   status_id?: string;
-  userLogged: string;
+  updater_id: string;
 }
 @injectable()
 class UpdateProjectService {
@@ -60,7 +60,7 @@ class UpdateProjectService {
     validated_scope,
     responsible_status,
     status_id,
-    userLogged,
+    updater_id,
   }: IRequest): Promise<Project> {
     const project = await this.projectsRepository.findById(project_id);
     let infoProject = '';
@@ -98,7 +98,7 @@ class UpdateProjectService {
       validated_scope,
       responsible_status,
       status_id,
-      updated_by: userLogged,
+      updater_id,
     });
 
     await this.projectsRepository.save(project);

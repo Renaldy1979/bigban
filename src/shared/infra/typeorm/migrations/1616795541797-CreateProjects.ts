@@ -113,7 +113,7 @@ export default class CreateProjects1616795541797 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'created_by',
+            name: 'creater_id',
             type: 'uuid',
           },
           {
@@ -122,7 +122,7 @@ export default class CreateProjects1616795541797 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'updated_by',
+            name: 'updater_id',
             type: 'uuid',
           },
         ],
