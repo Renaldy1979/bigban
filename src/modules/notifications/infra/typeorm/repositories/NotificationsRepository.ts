@@ -22,6 +22,20 @@ class NotificatiosRepository implements INotificationsRepository {
 
     return notificaation;
   }
+
+  public async index(): Promise<Notification[]> {
+    const status = await this.ormRepository.find();
+    return status;
+  }
+
+  public async findByRecipientId(
+    recipient_id: string,
+  ): Promise<Notification[]> {
+    const status = await this.ormRepository.find({
+      where: { recipient_id },
+    });
+    return status;
+  }
 }
 
 export default NotificatiosRepository;
