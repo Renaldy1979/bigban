@@ -33,6 +33,42 @@ import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/Use
 import ICommentTypeRepository from '@modules/projects/repositories/ICommentTypeRepository';
 import CommentTypeRepository from '@modules/projects/infra/typeorm/repositories/CommentTypeRepository';
 
+import IAttributesRepository from '@modules/attributes/repositories/IAttributesRepository';
+import AttributesRepository from '@modules/attributes/infra/typeorm/repositories/AttributesRepository';
+
+import IAttributesStatusRepository from '@modules/attributes/repositories/IAttributesStatusRepository';
+import AttributesStatusRepository from '@modules/attributes/infra/typeorm/repositories/AttributesStatusRepository';
+
+import IAttributeInfDatabaseRepository from '@modules/attributes/repositories/IAttributeInfDatabaseRepository';
+import AttributeInfDatabaseRepository from '@modules/attributes/infra/typeorm/repositories/AttributeInfDatabaseRepository';
+
+import IWorkflowsRepository from '@modules/workflows/repositories/IWorkflowsRepository';
+import WorkflowRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsRepository';
+
+import IWorkflowsStatusRepository from '@modules/workflows/repositories/IWorkflowsStatusRepository';
+import WorkflowStatusRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsStatusRepository';
+
+import IWorkflowsTypeRepository from '@modules/workflows/repositories/IWorkflowsTypeRepository';
+import WorkflowsTypeRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsTypeRepository';
+
+import IWorkflowsAttributesRepository from '@modules/workflows/repositories/IWorkflowsAttributesRepository';
+import WorkflowsAttributesRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsAttributesRepository';
+
+import IWorkflowsEvolutionsRepository from '@modules/workflows/repositories/IWorkflowsEvolutionsRepository';
+import WorkflowsEvolutionsRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsEvolutionsRepository';
+
+import IAttributesOriginRepository from '@modules/attributes/repositories/IAttributesOriginRepository';
+import AttributesOriginRepository from '@modules/attributes/infra/typeorm/repositories/AttributesOriginRepository';
+
+import IAttributesSegmentRepository from '@modules/attributes/repositories/IAttributesSegmentRepository';
+import AttributesSegmentRepository from '@modules/attributes/infra/typeorm/repositories/AttributesSegmentRepository';
+
+import ISprintRepository from '@modules/sprints/repositories/ISprintRepository';
+import SprintRepository from '@modules/sprints/infra/typeorm/repositories/SprintRepository';
+
+import ISprintStatusRepository from '@modules/sprints/repositories/ISprintStatusRepository';
+import SprintStatusRepository from '@modules/sprints/infra/typeorm/repositories/SprintStatusRepository';
+
 container.registerSingleton<IProjectsRepository>(
   'ProjectsRepository',
   ProjectsRepository,
@@ -81,4 +117,64 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerSingleton<ICommentTypeRepository>(
   'CommentTypeRepository',
   CommentTypeRepository,
+);
+
+container.registerSingleton<IAttributesRepository>(
+  'AttributesRepository',
+  AttributesRepository,
+);
+
+container.registerSingleton<IAttributesStatusRepository>(
+  'AttributesStatusRepository',
+  AttributesStatusRepository,
+);
+
+container.registerSingleton<IAttributeInfDatabaseRepository>(
+  'AttributeInfDatabaseRepository',
+  AttributeInfDatabaseRepository,
+);
+
+container.registerSingleton<IWorkflowsRepository>(
+  'WorkflowsRepository',
+  WorkflowRepository,
+);
+
+container.registerSingleton<IWorkflowsStatusRepository>(
+  'WorkflowsStatusRepository',
+  WorkflowStatusRepository,
+);
+
+container.registerSingleton<IWorkflowsTypeRepository>(
+  'WorkflowsTypeRepository',
+  WorkflowsTypeRepository,
+);
+
+container.registerSingleton<IWorkflowsAttributesRepository>(
+  'WorkflowsAttributesRepository',
+  WorkflowsAttributesRepository,
+);
+
+container.registerSingleton<IWorkflowsEvolutionsRepository>(
+  'WorkflowsEvolutionsRepository',
+  WorkflowsEvolutionsRepository,
+);
+
+container.registerSingleton<IAttributesOriginRepository>(
+  'AttributesOriginRepository',
+  AttributesOriginRepository,
+);
+
+container.registerSingleton<IAttributesSegmentRepository>(
+  'AttributesSegmentRepository',
+  AttributesSegmentRepository,
+);
+
+container.registerSingleton<ISprintRepository>(
+  'SprintRepository',
+  SprintRepository,
+);
+
+container.registerSingleton<ISprintStatusRepository>(
+  'SprintStatusRepository',
+  SprintStatusRepository,
 );

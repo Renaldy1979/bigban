@@ -1,7 +1,8 @@
 import INofiticationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import ICommentsRepository from '@modules/projects/repositories/ICommentsRepository';
+import IStatusRepository from '@modules/projects/repositories/IStatusRepository';
 import Project from '../infra/typeorm/entities/Project';
 import IProjectsRepository from '../repositories/IProjectsRepository';
 
@@ -36,8 +37,11 @@ class UpdateProjectService {
     @inject('NotificationsRepository')
     private notificationsRepository: INofiticationsRepository,
 
-    @inject('CacheProvider')
-    private cacheProvider: ICacheProvider,
+    @inject('CommentsRepository')
+    private commentsRepository: ICommentsRepository,
+
+    @inject('StatusRepository')
+    private statusRepository: IStatusRepository,
   ) {}
 
   public async execute({
@@ -79,6 +83,30 @@ class UpdateProjectService {
       }
     }
 
+    if (project.code) {
+      infoProject = `${project.code} - ${project.name}`;
+    } else {
+      infoProject = `${project.name}`;
+    }
+
+    await this.notificationsRepository.create({
+      recipient_id: project.requester_id,
+      content: `Houve uma atualização no projeto ${infoProject}`,
+      read: false,
+    });
+
+    if (status_id) {
+      const oldStatus = await this.statusRepository.findById(project.status_id);
+      const newStatus = await this.statusRepository.findById(status_id);
+
+      await this.commentsRepository.create({
+        creater_id: updater_id,
+        description: `Alteração de Status. DE: ${oldStatus?.description} / PARA: ${newStatus?.description}`,
+        project_id,
+        type_id: '4bfc4add-1406-4388-8703-633508c4fa2a',
+      });
+    }
+
     Object.assign(project, {
       name,
       code,
@@ -102,19 +130,6 @@ class UpdateProjectService {
     });
 
     await this.projectsRepository.save(project);
-
-    if (project.code) {
-      infoProject = `${project.code} - ${project.name}`;
-    } else {
-      infoProject = `${project.name}`;
-    }
-
-    await this.notificationsRepository.create({
-      recipient_id: project.requester_id,
-      content: `Houve uma atualização no projeto ${infoProject}`,
-    });
-
-    await this.cacheProvider.invalidatePrefix('projects-list');
 
     return project;
   }

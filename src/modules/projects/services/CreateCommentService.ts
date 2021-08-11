@@ -67,6 +67,7 @@ class CreateCommentService {
     await this.notificationsRepository.create({
       recipient_id: checkExistsProject.requester_id,
       content: `Um novo comentário foi adicionado ao projeto ${infoProject}`,
+      read: false,
     });
 
     return commentCreate;

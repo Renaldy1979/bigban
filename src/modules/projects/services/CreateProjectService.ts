@@ -108,6 +108,7 @@ class CreateProjectService {
     await this.notificationsRepository.create({
       recipient_id: requester_id,
       content: `Um novo projeto foi adicionado tendo você como solicitante`,
+      read: false,
     });
 
     await this.cacheProvider.invalidatePrefix('projects-list');

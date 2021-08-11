@@ -5,4 +5,5 @@ export default interface IProjectsRepository {
   create(data: ICreateStatusDTO): Promise<Status>;
   index(): Promise<Status[]>;
   findByDescription(description: string): Promise<Status | undefined>;
+  findById(id: string): Promise<Status | undefined>;
 }

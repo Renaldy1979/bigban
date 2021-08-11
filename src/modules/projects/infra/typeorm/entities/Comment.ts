@@ -42,10 +42,10 @@ class Comment {
   @JoinColumn({ name: 'creater_id' })
   creater: User;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at: string;
 
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
   updated_at: Date;
 }
 

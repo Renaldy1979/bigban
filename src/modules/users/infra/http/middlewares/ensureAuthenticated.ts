@@ -11,6 +11,7 @@ interface ITokenPayload {
   exp: number;
   sub: string;
   roles: string;
+  permissions: string;
 }
 
 async function decoder(request: Request): Promise<User | undefined> {

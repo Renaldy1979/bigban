@@ -1,23 +1,20 @@
 import AppError from '@shared/errors/AppError';
-import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import FakeProjectsRepository from '../repositories/fakes/FakeProjectsRepository';
 import UpdateProjectService from './UpdateProjectService';
 
 let fakeProjectsRepository: FakeProjectsRepository;
 let updateProject: UpdateProjectService;
-let fakeCacheProvider: FakeCacheProvider;
 let fakeNotificationsRepository: FakeNotificationsRepository;
 
 describe('UpdateProject', () => {
   beforeEach(() => {
     fakeProjectsRepository = new FakeProjectsRepository();
-    fakeCacheProvider = new FakeCacheProvider();
+
     fakeNotificationsRepository = new FakeNotificationsRepository();
     updateProject = new UpdateProjectService(
       fakeProjectsRepository,
       fakeNotificationsRepository,
-      fakeCacheProvider,
     );
   });
   it('should be able to update the project', async () => {

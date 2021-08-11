@@ -69,13 +69,26 @@ class AuthenticateUserService {
 
     const userRoles = user.roles.map(role => role.name).toString();
 
-    const token = sign({ email, roles: userRoles }, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    const userPermissions = user.roles
+      .map(role => {
+        return role.permissions.map(permission => permission.name);
+      })
+      .filter((elem, index, self) => {
+        return index === self.indexOf(elem);
+      })
+      .toString();
+
+    const token = sign(
+      { email, roles: userRoles, permissions: userPermissions },
+      secret,
+      {
+        subject: user.id,
+        expiresIn,
+      },
+    );
 
     const refresh_token = sign(
-      { email, roles: userRoles },
+      { email, roles: userRoles, permissions: userPermissions },
       secretRefreshToken,
       {
         subject: user.id,
